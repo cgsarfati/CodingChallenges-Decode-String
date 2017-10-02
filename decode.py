@@ -23,9 +23,57 @@ Longer patterns should work::
     'hey'
 """
 
+# BRUTE FORCE SOLUTION
+
 
 def decode(s):
     """Decode a string."""
+
+    # initialize
+    result = ""
+    index_of_digit = 0
+    consumed = 0
+
+    # loop until no letters remaining
+    while consumed < len(s):
+        digit = int(s[index_of_digit])
+        index_of_letter = consumed + digit + 1
+        result += s[index_of_letter]
+
+        index_of_digit = index_of_letter + 1
+        consumed = index_of_letter + 1
+
+    return result
+
+# CLEANER SOLUTION
+
+
+def decode2(word):
+    """Decode a string."""
+
+    # initialize
+    result = ""
+    remaining = word
+
+    while len(remaining) > 0:
+        index_of_letter = int(remaining[0]) + 1
+        result += remaining[index_of_letter]
+        remaining = remaining[index_of_letter + 1:]
+    return result
+
+# RECURSIVE SOLUTION
+
+
+def decode3(word):
+    # Recursive implementation.
+    # base
+    if len(word) == 0:
+        return ""
+    # progression
+    # Word is not empty.
+    # KEY IDEA: Decode first letter, decode rest of input, and concatenate those
+    index_of_letter = int(word[0]) + 1
+    return word[index_of_letter] + decode(word[index_of_letter + 1:])
 
 if __name__ == '__main__':
     import doctest
